@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/edit" method="POST">
+    <input name="id" th:value="${data.id}" style="display:none">
+    <div><input name="title" th:value="${data.title}"></div>
+    <div><input name="contents" th:value="${data.contents}"></div>
+    <button type="submit">수정</button>
+</form>
+</body>
+</html>

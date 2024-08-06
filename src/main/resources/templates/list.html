@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+<table border="1">
+    <th></th>
+    <th width="500px">목록</th>
+    <th>작성 날짜</th>
+    <th>조회수</th>
+    <th>수정</th>
+    <th>삭제</th>
+    <tr th:each="post : ${posts}">
+        <td align="center" width="100" th:text="${post.id}">번호</td>
+        <td>
+            <a th:href="@{/details/{postId}(postId=${post.id})}"
+                th:text="${post.title}">제목
+            </a>
+        </td>
+        <td align="center" width="200" th:text="${post.createdDate}">날짜</td>
+        <td align="center" width="100" th:text="${post.views}">조회수</td>
+        <td>
+            <a th:href="@{'/edit/' + ${post.id}}">✏️</a>
+        </td>
+        <td>
+            <a th:onclick="fetch('/delete?id=[[${post.id}]]',
+                            {method : 'DELETE'})
+                            .then(r=>r.text)
+                            .then(()=>{ location.reload()})">🗑️</a>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>
