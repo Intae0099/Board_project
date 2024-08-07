@@ -1,5 +1,6 @@
 package com.board.board;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 public class PostTimeEntity {
     //엔티티 생성시 당시 시간 저장
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
     //엔티티 값 변경시 당시 시간 저장

@@ -48,11 +48,12 @@ public class BoardController {
 
     @GetMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model){
-        Optional<Post> result = postRepository.findById(id);
-        if (result.isPresent()){
-            model.addAttribute("post", result.get());
-            System.out.println(result.get().getTitle());
-            System.out.println(result.get().getContents());
+        Optional<Post> data = postRepository.findById(id);
+        if (data.isPresent()){
+            model.addAttribute("post", data.get());
+            Post temppost = data.get();
+            temppost.setViews(temppost.getViews() + 1);
+            postRepository.save(temppost);
             return "detail.html";
         }
         else{
@@ -75,11 +76,12 @@ public class BoardController {
     }
 
     @PostMapping("/edit")
-    public String edit(Long id, String title, String contents){
+    public String edit(Long id, String title, String contents, Integer views){
         Post post = new Post();
         post.setId(id);
         post.setTitle(title);
         post.setContents(contents);
+        post.setViews(views);
         postRepository.save(post);
         return "redirect:/list";
     }
