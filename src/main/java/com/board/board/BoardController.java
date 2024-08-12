@@ -13,6 +13,7 @@ import java.util.Optional;
 public class BoardController {
 
     private final PostRepository postRepository;
+    private final PostService postService;
 
 //    private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -36,24 +37,17 @@ public class BoardController {
 
     @PostMapping("/add")
     public String addPost(@RequestParam String title, @RequestParam String contents){
-        //입력 받아서
-        //날짜 등록하여 디비에 저장
-        Post post = new Post();
-        post.setTitle(title);
-        post.setContents(contents);
-        //날짜 자동 결정하는거 찾아보기
-        postRepository.save(post);
+        postService.saveNewPost(title, contents);
         return "redirect:/list";
     }
 
     @GetMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model){
-        Optional<Post> data = postRepository.findById(id);
+        Optional<Post> data = postService.findpostById(id);
         if (data.isPresent()){
             model.addAttribute("post", data.get());
             Post temppost = data.get();
-            temppost.setViews(temppost.getViews() + 1);
-            postRepository.save(temppost);
+            postService.increaseViews(temppost);
             return "detail.html";
         }
         else{
@@ -64,7 +58,7 @@ public class BoardController {
 
     @GetMapping("/edit/{id}")
     public String editPost(@PathVariable Long id, Model model){
-        Optional<Post> data = postRepository.findById(id);
+        Optional<Post> data = postService.findpostById(id);
         if(data.isPresent()){
             model.addAttribute("data", data.get());
             return "edit.html";
@@ -77,12 +71,7 @@ public class BoardController {
 
     @PostMapping("/edit")
     public String edit(Long id, String title, String contents, Integer views){
-        Post post = new Post();
-        post.setId(id);
-        post.setTitle(title);
-        post.setContents(contents);
-        post.setViews(views);
-        postRepository.save(post);
+        postService.editPost(id, title, contents, views);
         return "redirect:/list";
     }
 
