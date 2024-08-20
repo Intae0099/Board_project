@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="~{nav.html :: navbar}"></div>
 <div>
 <table border="1">
     <th></th>
@@ -33,6 +34,10 @@
         </td>
     </tr>
 </table>
+    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{'/list/page/' + ${page}}" th:text ="${page}"></a>
+        <strong th:if="${page==nowPage}" th:text="${page}" style="color:red"></strong>
+    </th:block>
 </div>
 </body>
 </html>
