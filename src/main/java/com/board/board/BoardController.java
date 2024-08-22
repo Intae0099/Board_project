@@ -62,7 +62,7 @@ public class BoardController {
     @PostMapping("/add")
     public String addPost(@RequestParam String title, @RequestParam String contents){
         postService.saveNewPost(title, contents);
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 
     @GetMapping("/details/{id}")
@@ -77,7 +77,7 @@ public class BoardController {
             return "detail.html";
         }
         else{
-            return "redirect:/list";
+            return "redirect:/list/page/1";
         }
 
     }
@@ -90,7 +90,7 @@ public class BoardController {
             return "edit.html";
         }
         else{
-            return "redirect:/list";
+            return "redirect:/list/page/1";
         }
 
     }
@@ -98,7 +98,7 @@ public class BoardController {
     @PostMapping("/edit")
     public String edit(Long id, String title, String contents, Integer views){
         postService.editPost(id, title, contents, views);
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 
     @DeleteMapping("/delete")
