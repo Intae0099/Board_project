@@ -1,15 +1,20 @@
 package com.board.board;
 
+import com.board.board.Post.Post;
+import com.board.board.Post.PostRepository;
+import com.board.board.Post.PostService;
+import com.board.board.comment.Comment;
+import com.board.board.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -18,6 +23,7 @@ public class BoardController {
 
     private final PostRepository postRepository;
     private final PostService postService;
+    private final CommentRepository commentRepository;
 
 //    private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -35,11 +41,11 @@ public class BoardController {
     }
 
     @GetMapping("/list/page/{pagenum}")
-    public String pagelist(Model model, @PathVariable Integer pagenum){
+    public String pageList(Model model, @PathVariable Integer pagenum){
         Page<Post> result = postRepository.findPageBy(PageRequest.of(pagenum - 1, 5, Sort.by("id").descending()));
         int nowPage = result.getPageable().getPageNumber() + 1;
-        int startPage = Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage+9, result.getTotalPages());
+        int startPage = Math.max(nowPage - 2, 1);
+        int endPage = Math.min(nowPage+2, result.getTotalPages());
 
         model.addAttribute("posts", result);
         model.addAttribute("nowPage", nowPage);
@@ -62,8 +68,10 @@ public class BoardController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model){
         Optional<Post> data = postService.findpostById(id);
+        List<Comment> commentData = commentRepository.findAllByParentId(id);
         if (data.isPresent()){
             model.addAttribute("post", data.get());
+            model.addAttribute("comments", commentData);
             Post temppost = data.get();
             postService.increaseViews(temppost);
             return "detail.html";
@@ -97,5 +105,14 @@ public class BoardController {
     public ResponseEntity<String> delete(Long id){
         postRepository.deleteById(id);
         return ResponseEntity.status(200).body("삭제완료");
+    }
+
+    @PostMapping("/comment")
+    public String writeComment(String content, Long parentId){
+        Comment data = new Comment();
+        data.setContent(content);
+        data.setParentId(parentId);
+        commentRepository.save(data);
+        return "redirect:/list";
     }
 }
