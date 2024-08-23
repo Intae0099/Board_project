@@ -67,7 +67,7 @@ public class BoardController {
 
     @GetMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model){
-        Optional<Post> data = postService.findpostById(id);
+        Optional<Post> data = postService.findPostById(id);
         List<Comment> commentData = commentRepository.findAllByParentId(id);
         if (data.isPresent()){
             model.addAttribute("post", data.get());
@@ -84,7 +84,7 @@ public class BoardController {
 
     @GetMapping("/edit/{id}")
     public String editPost(@PathVariable Long id, Model model){
-        Optional<Post> data = postService.findpostById(id);
+        Optional<Post> data = postService.findPostById(id);
         if(data.isPresent()){
             model.addAttribute("data", data.get());
             return "edit.html";
@@ -113,6 +113,6 @@ public class BoardController {
         data.setContent(content);
         data.setParentId(parentId);
         commentRepository.save(data);
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 }

@@ -21,14 +21,19 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public Optional<Post> findpostById(Long id){
+    public Optional<Post> findPostById(Long id){
         return postRepository.findById(id);
     }
 
     public void increaseViews(Post temppost){
-
-        temppost.setViews(temppost.getViews() + 1);
-        postRepository.save(temppost);
+        if (temppost.getViews() != null){
+            temppost.setViews(temppost.getViews() + 1);
+            postRepository.save(temppost);
+        }
+        else{
+            temppost.setViews(1);
+            postRepository.save(temppost);
+        }
     }
 
     public void editPost(Long id, String title, String contents, Integer views){
