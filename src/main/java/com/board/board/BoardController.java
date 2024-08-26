@@ -115,4 +115,20 @@ public class BoardController {
         commentRepository.save(data);
         return "redirect:/list/page/1";
     }
+
+    @PostMapping("/editComment")
+    public String editComment(Long id, String content, Long parentId){
+        Comment data = new Comment();
+        data.setId(id);
+        data.setContent(content);
+        data.setParentId(parentId);
+        commentRepository.save(data);
+        return "redirect:/details/" + parentId.toString();
+    }
+
+    @DeleteMapping("/deleteComment")
+    public ResponseEntity<String> deleteComment(Long id){
+        commentRepository.deleteById(id);
+        return ResponseEntity.status(200).body("삭제완료");
+    }
 }
