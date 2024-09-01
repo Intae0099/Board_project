@@ -9,15 +9,14 @@ MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 
 
 >인원 : 1명
 
-- - -
 
-<사용 기술>
+|사용 기술|버전|
+|-----|---|
+|Language | JAVA17 |
 
->Language : JAVA17
+|Framework | Spring boot 3.3.2 |
 
->Framework : Spring boot 3.3.2 
+|Database | MySQL |
 
->Database : MySQL
-
->CI/CD : GitHub
+|CI/CD | GitHub |
 
