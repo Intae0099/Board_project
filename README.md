@@ -1,4 +1,5 @@
 #Board_Project
+
 MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 게시판 프로젝트 입니다.
 
 - - -
@@ -29,11 +30,12 @@ MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 
  
 ##기능 상세 설명:
 
-[게시글]
+###[게시글]
 
-|-----|---|
-|![3](https://github.com/user-attachments/assets/6292b849-4783-4219-9654-d8152612deb1)}|![4](https://github.com/user-attachments/assets/ef1d1a2c-87e0-410a-8b69-585eda7feea1)|
-|![5](https://github.com/user-attachments/assets/4e99190b-d576-464c-9c42-7e3dfa8b38b8)|![6](https://github.com/user-attachments/assets/419283bf-6638-45bf-8795-dfaf33c0b7b1)|
+![3](https://github.com/user-attachments/assets/6292b849-4783-4219-9654-d8152612deb1)}
+![4](https://github.com/user-attachments/assets/ef1d1a2c-87e0-410a-8b69-585eda7feea1)
+![5](https://github.com/user-attachments/assets/4e99190b-d576-464c-9c42-7e3dfa8b38b8)
+![6](https://github.com/user-attachments/assets/419283bf-6638-45bf-8795-dfaf33c0b7b1)
 
 
 
@@ -43,9 +45,7 @@ MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 
 
 - 게시글 조회 : 목록에 있는 게시글 제목 클릭 시 게시글 내용을 확인
 
-
 - 게시글 삭제 : 삭제하려는 게시글과 회원 정보가 일치 시 게시글 삭제
-
 
 - 게시글 수정 : 수정하려는 게시글과 회원 정보가 일치 시 게시글 수정하여 갱신
 
@@ -53,10 +53,10 @@ MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 
 
  
 
-[댓글]
+###[댓글]
 
-|-----|---|
-|![5](https://github.com/user-attachments/assets/a2e65cb1-baa2-4041-9184-4f631f05a560)|![3](https://github.com/user-attachments/assets/eb811592-a251-4cfc-befc-8e6bca82b2e7)|
+![5](https://github.com/user-attachments/assets/a2e65cb1-baa2-4041-9184-4f631f05a560)
+![3](https://github.com/user-attachments/assets/eb811592-a251-4cfc-befc-8e6bca82b2e7)
 
 
 
