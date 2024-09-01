@@ -30,7 +30,10 @@ MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 
  
 ## 기능 상세 설명:
 
+
+
 ### [게시글]
+
 
 ![3](https://github.com/user-attachments/assets/6292b849-4783-4219-9654-d8152612deb1)}
 ![4](https://github.com/user-attachments/assets/ef1d1a2c-87e0-410a-8b69-585eda7feea1)
@@ -55,8 +58,10 @@ MVC 패턴의 프레임워크를 학습을하며 정리 및 구현하기 위한 
 
 ### [댓글]
 
+
 ![5](https://github.com/user-attachments/assets/a2e65cb1-baa2-4041-9184-4f631f05a560)
 ![3](https://github.com/user-attachments/assets/eb811592-a251-4cfc-befc-8e6bca82b2e7)
+
 
 
 
