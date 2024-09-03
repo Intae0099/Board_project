@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Entity
 //null값을 자동으로 insert 쿼리에 포함시키지 않게 해준다
 @DynamicInsert
+@Table(name="post", indexes = @Index(name = "search_title_index", columnList = "title"))
 public class Post extends PostTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
