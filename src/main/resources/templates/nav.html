@@ -19,8 +19,18 @@
                 <li class="nav-item"><a href="/list/page/1" class="nav-link active" aria-current="page">글 목록</a></li>
                 <li class="nav-item"><a href="/write" class="nav-link">글 작성</a></li>
             </ul>
+            <form action="/search" method="POST" class="d-flex mt-3 mt-lg-0" role="search">
+                <input name="searchText" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
         </header>
     </div>
+<script>
+    document.querySelectorAll('.btn btn-outline-primary')[0].addEventListener('click', function(){
+        fetch('/search?searchText=value')
+    })
+</script>
+
 </body>
 
 </html>

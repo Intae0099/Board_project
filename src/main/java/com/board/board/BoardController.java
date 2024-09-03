@@ -7,6 +7,7 @@ import com.board.board.comment.Comment;
 import com.board.board.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,5 +133,30 @@ public class BoardController {
     public ResponseEntity<String> deleteComment(Long id){
         commentRepository.deleteById(id);
         return ResponseEntity.status(200).body("삭제완료");
+    }
+
+    @PostMapping("/search")
+    public String search(Model model, @RequestParam String searchText) throws UnsupportedEncodingException {
+        String encodedParam = URLEncoder.encode(searchText, "UTF-8");
+        System.out.println("1 ok");
+        return "redirect:/1/search?searchText=" + encodedParam;
+    }
+
+    @GetMapping("/{pagenum}/search")
+    public String searchPageList(Model model, @PathVariable Integer pagenum, @RequestParam String searchText){
+        System.out.println("2 ok");
+        Page<Post> result = postRepository.findAllByTitleContains(searchText, PageRequest.of(pagenum - 1, 5, Sort.by("id").descending()));
+        System.out.println("3 ok");
+        int nowPage = result.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 2, 1);
+        int endPage = Math.min(nowPage+2, result.getTotalPages());
+
+        model.addAttribute("posts", result);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("searchText", searchText);
+        System.out.println("4 ok");
+        return "search.html";
     }
 }
