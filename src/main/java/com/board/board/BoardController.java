@@ -5,6 +5,7 @@ import com.board.board.Post.PostRepository;
 import com.board.board.Post.PostService;
 import com.board.board.comment.Comment;
 import com.board.board.comment.CommentRepository;
+import com.board.board.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,6 +28,7 @@ public class BoardController {
     private final PostRepository postRepository;
     private final PostService postService;
     private final CommentRepository commentRepository;
+    private final CommentService commentService;
 
 //    private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -112,20 +114,13 @@ public class BoardController {
 
     @PostMapping("/comment")
     public String writeComment(String content, Long parentId){
-        Comment data = new Comment();
-        data.setContent(content);
-        data.setParentId(parentId);
-        commentRepository.save(data);
+        commentService.writeComment(content, parentId);
         return "redirect:/list/page/1";
     }
 
     @PostMapping("/editComment")
     public String editComment(Long id, String content, Long parentId){
-        Comment data = new Comment();
-        data.setId(id);
-        data.setContent(content);
-        data.setParentId(parentId);
-        commentRepository.save(data);
+        commentService.editComment(id, content, parentId);
         return "redirect:/details/" + parentId.toString();
     }
 
@@ -138,15 +133,12 @@ public class BoardController {
     @PostMapping("/search")
     public String search(Model model, @RequestParam String searchText) throws UnsupportedEncodingException {
         String encodedParam = URLEncoder.encode(searchText, "UTF-8");
-        System.out.println("1 ok");
         return "redirect:/1/search?searchText=" + encodedParam;
     }
 
     @GetMapping("/{pagenum}/search")
     public String searchPageList(Model model, @PathVariable Integer pagenum, @RequestParam String searchText){
-        System.out.println("2 ok");
         Page<Post> result = postRepository.findAllByTitleContains(searchText, PageRequest.of(pagenum - 1, 5, Sort.by("id").descending()));
-        System.out.println("3 ok");
         int nowPage = result.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 2, 1);
         int endPage = Math.min(nowPage+2, result.getTotalPages());
@@ -156,7 +148,6 @@ public class BoardController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("searchText", searchText);
-        System.out.println("4 ok");
         return "search.html";
     }
 }
